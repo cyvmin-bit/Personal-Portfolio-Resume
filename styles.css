@@ -943,3 +943,33 @@ body.dark .nav-link::after {
   color: var(--text) !important;
   box-shadow: none !important;
 }
+
+/* Fix hero readability for light & dark mode */
+:root{ color-scheme: light dark; } /* hint to browsers */
+
+#home,
+#home h1, #home h2, #home p, #home .lead {
+  color: var(--text) !important;
+}
+
+/* light-mode overlay (default) */
+body:not(.dark) #home::before {
+  background: rgba(255,255,255,0.45) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+/* dark-mode overlay */
+body.dark #home::before {
+  background: rgba(0,0,0,0.55) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+/* reduce overlay intensity on small screens */
+@media (max-width: 768px) {
+  body:not(.dark) #home::before { background: rgba(255,255,255,0.35) !important; }
+  body.dark #home::before { background: rgba(0,0,0,0.6) !important; }
+}
+
+/* ensure CTA and text in hero inherit visible color */
+#home .btn, #home .btn-outline, #home a { color: inherit !important; }
+
