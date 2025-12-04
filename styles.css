@@ -944,32 +944,40 @@ body.dark .nav-link::after {
   box-shadow: none !important;
 }
 
-/* Fix hero readability for light & dark mode */
-:root{ color-scheme: light dark; } /* hint to browsers */
+/* === Force hero text & overlay to follow site theme (light vs dark) === */
 
-#home,
-#home h1, #home h2, #home p, #home .lead {
+/* Hint browsers we support both schemes (helps UA behavior) */
+:root { color-scheme: light dark; }
+
+/* Ensure the site-level text variable is respected */
+body:not(.dark) { --text: #0b0b0b; --bg: #ffffff; }
+body.dark     { --text: #f5f7fa; --bg: #0b0c0f; }
+
+/* Make hero content always inherit the theme color */
+#home, 
+#home h1, #home h2, #home p, #home .lead, 
+#home .cta-row, #home .btn, #home a {
   color: var(--text) !important;
 }
 
-/* light-mode overlay (default) */
+/* Light-mode overlay (when user chose LIGHT) — strong enough for readability */
 body:not(.dark) #home::before {
-  background: rgba(255,255,255,0.45) !important;
+  background: rgba(255,255,255,0.65) !important;
   backdrop-filter: blur(2px) !important;
 }
 
-/* dark-mode overlay */
+/* Dark-mode overlay (when user chose DARK) */
 body.dark #home::before {
   background: rgba(0,0,0,0.55) !important;
   backdrop-filter: blur(2px) !important;
 }
 
-/* reduce overlay intensity on small screens */
+/* On small screens reduce blur but keep contrast so text remains readable */
 @media (max-width: 768px) {
-  body:not(.dark) #home::before { background: rgba(255,255,255,0.35) !important; }
-  body.dark #home::before { background: rgba(0,0,0,0.6) !important; }
+  body:not(.dark) #home::before { background: rgba(255,255,255,0.55) !important; backdrop-filter: blur(1px) !important; }
+  body.dark #home::before     { background: rgba(0,0,0,0.65) !important; backdrop-filter: blur(1px) !important; }
 }
 
-/* ensure CTA and text in hero inherit visible color */
-#home .btn, #home .btn-outline, #home a { color: inherit !important; }
+/* Force CTA text color (buttons) to be readable on top of overlay */
+#home .btn, #home .btn-outline { color: #fff !important; }
 
