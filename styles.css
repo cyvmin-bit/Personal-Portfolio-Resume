@@ -1055,64 +1055,59 @@ body.dark #home::before {
   #menuToggle { display: inline-flex; }
 }
 
-/* ---------------------------
-   Mobile menu visibility fix
-   Paste at end of styles.css
-   --------------------------- */
+/* -----------------------------
+  Mobile menu visibility patch
+  ----------------------------- */
 @media (max-width: 699px) {
-
-  /* ensure the toggle button is visible */
+  /* Ensure mobile-only toggle is visible (defensive) */
   .mobile-only { display: inline-block !important; }
 
-  /* default hidden (lets user JS control it). keep nice appearance if js doesn't run */
-  #mobileMenu { display: none; }
-
-  /* show mobile menu when toggle indicates expanded (modern browsers supporting :has) */
-  header:has(#menuToggle[aria-expanded="true"]) #mobileMenu,
-  /* also allow working if JS adds .open class */
-  header #mobileMenu.open {
-    display: block !important;
-    position: absolute;
+  /* Show and lift the menu when it's not hidden */
+  #mobileMenu {
+    display: none;               /* default: hidden until JS removes attribute */
+    position: absolute;          /* float over the page */
     left: 0;
     right: 0;
-    top: 64px; /* adjust if your header height differs */
+    top: 64px;                   /* places it just below the header (adjust if needed) */
+    z-index: 9999;               /* ensure it's above hero and overlays */
     background: var(--bg);
-    padding: 0.75rem 0;
     border-top: 1px solid rgba(0,0,0,0.06);
-    z-index: 9999;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    padding: .5rem 0;
   }
 
-  /* inner list layout */
+  /* When JS removes the "hidden" attribute, show the menu */
+  #mobileMenu:not([hidden]) {
+    display: block !important;
+  }
+
+  /* Menu list layout */
   #mobileMenu ul {
-    list-style: none;
     margin: 0;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: .4rem;
   }
 
-  /* links inside menu */
   #mobileMenu a {
     display: block;
-    padding: 0.6rem 0.75rem;
+    padding: .6rem .8rem;
     border-radius: 8px;
-    color: var(--text);
     text-decoration: none;
+    color: var(--text);
   }
-
-  #mobileMenu a:hover, #mobileMenu a:focus {
+  #mobileMenu a:focus,
+  #mobileMenu a:hover {
     background: var(--card);
   }
 
-  /* dark mode support */
-  body.dark header:has(#menuToggle[aria-expanded="true"]) #mobileMenu,
-  body.dark header #mobileMenu.open {
+  /* Keep dark mode consistent */
+  body.dark #mobileMenu,
+  body.dark #mobileMenu:not([hidden]) {
     background: var(--bg);
     border-top: 1px solid rgba(255,255,255,0.05);
   }
 }
-
-
-
 
