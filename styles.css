@@ -944,10 +944,8 @@ body.dark .nav-link::after {
   box-shadow: none !important;
 }
 
-/* === Force hero text & overlay to follow site theme (light vs dark) === */
-
-/* Hint browsers we support both schemes (helps UA behavior) */
-:root { color-scheme: light dark; }
+/* Fix hero readability for light & dark mode */
+:root{ color-scheme: light dark; } /* hint to browsers */
 
 /* Ensure the site-level text variable is respected */
 body:not(.dark) { --text: #0b0b0b; --bg: #ffffff; }
@@ -960,24 +958,103 @@ body.dark     { --text: #f5f7fa; --bg: #0b0c0f; }
   color: var(--text) !important;
 }
 
-/* Light-mode overlay (when user chose LIGHT) — strong enough for readability */
+/* light-mode overlay (default) */
 body:not(.dark) #home::before {
   background: rgba(255,255,255,0.65) !important;
   backdrop-filter: blur(2px) !important;
 }
 
-/* Dark-mode overlay (when user chose DARK) */
+/* dark-mode overlay */
 body.dark #home::before {
   background: rgba(0,0,0,0.55) !important;
   backdrop-filter: blur(2px) !important;
 }
 
-/* On small screens reduce blur but keep contrast so text remains readable */
+/* reduce overlay intensity on small screens */
 @media (max-width: 768px) {
-  body:not(.dark) #home::before { background: rgba(255,255,255,0.55) !important; backdrop-filter: blur(1px) !important; }
-  body.dark #home::before     { background: rgba(0,0,0,0.65) !important; backdrop-filter: blur(1px) !important; }
+  body:not(.dark) #home::before { background: rgba(255,255,255,0.55) !important; }
+  body.dark #home::before { background: rgba(0,0,0,0.65) !important; }
 }
 
-/* Force CTA text color (buttons) to be readable on top of overlay */
-#home .btn, #home .btn-outline { color: #fff !important; }
+/* ensure CTA and text in hero inherit visible color */
+#home .btn, #home .btn-outline, #home a { color: inherit !important; }
+
+
+
+/* ============================================
+   MOBILE-ONLY STYLING (max-width: 699px)
+   Applies ONLY on phones
+============================================ */
+@media (max-width: 699px) {
+
+  /* Base button styles for both toggles */
+  #menuToggle,
+  #themeToggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.06);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    transition: background .18s ease, box-shadow .18s ease, transform .12s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  /* Hover effect (phones also trigger hover lightly) */
+  #menuToggle:hover,
+  #themeToggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  /* Focus state */
+  #menuToggle:focus,
+  #themeToggle:focus {
+    outline: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12),
+                0 0 0 4px rgba(0,123,255,0.12);
+    border-color: rgba(0,123,255,0.28);
+  }
+
+  /* Buttons inside header */
+  .site-header #menuToggle,
+  .site-header #themeToggle {
+    border-color: rgba(0,0,0,0.08);
+  }
+
+  /* Dark mode (phone only) */
+  body.dark #menuToggle,
+  body.dark #themeToggle {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    border-color: rgba(255,255,255,0.06);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+  }
+
+  /* For blurred header */
+  .site-header.blur-header #menuToggle {
+    background: rgba(255,255,255,0.9);
+  }
+
+  /* Make sure SVG icons inherit color */
+  #menuToggle svg,
+  #themeToggle svg {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  /* Utility */
+  .mobile-only { display: inline-block; }
+  #menuToggle { display: inline-flex; }
+}
+
+
+
 
