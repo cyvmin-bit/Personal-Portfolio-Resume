@@ -1055,6 +1055,34 @@ body.dark #home::before {
   #menuToggle { display: inline-flex; }
 }
 
+/* =====================================
+   Makes the toggle open & close properly
+   ===================================== */
+
+/* When JS adds class .open to .main-nav */
+.main-nav.open {
+  display: block !important;
+}
+
+/* Proper mobile dropdown styling */
+@media (max-width: 699px) {
+  .main-nav.open {
+    position: absolute;
+    top: 70px;       /* below header */
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    padding: 1rem 0;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    z-index: 9999;
+  }
+
+  .main-nav.open ul {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-left: 1.25rem;
+  }
+}
 
 
 
