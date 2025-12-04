@@ -34,6 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (userPref) applyTheme(userPref);
   else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
+  // Listen for system theme changes, but only auto-switch when user hasn't set a preference
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  if (mq && mq.addEventListener) {
+    mq.addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  } else if (mq && mq.addListener) {
+    // fallback for older browsers
+    mq.addListener((e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  }
+
   // Toggle theme on button click
   themeToggle.addEventListener('click', () => {
     const isDark = document.body.classList.toggle('dark');
@@ -137,8 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Modal close buttons and outside click
-  modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
   });
@@ -251,14 +268,17 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('hashchange', handleRoute);
   handleRoute();
 
-});
 
-// resume download click handler (non-essential)
-const downloadResumeBtn = q('#downloadResume');
-if (downloadResumeBtn) {
-  downloadResumeBtn.addEventListener('click', () => {
-    // simple console log for debugging; remove if not needed
-    console.log('Resume download clicked');
-  });
-}
+  /* ---------------------------------------------------
+     Optional: resume download click handler (non-essential)
+     Placed here so it can use q() helper
+  --------------------------------------------------- */
+  const downloadResumeBtn = q('#downloadResume');
+  if (downloadResumeBtn) {
+    downloadResumeBtn.addEventListener('click', () => {
+      // simple console log for debugging; remove if not needed
+      console.log('Resume download clicked');
+    });
+  }
 
+}); // end DOMContentLoaded
