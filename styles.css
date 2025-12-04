@@ -236,12 +236,6 @@ body.dark .site-header {
   transition: var(--transition);
 }
 
-.btn-outline:hover {
-  background: #6c63ff;
-  color: white !important;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
 
 .btn-outline {
   background: transparent;
@@ -803,7 +797,6 @@ body.dark .project-btn {
   color: #000; /* make text readable */
   padding: 200px 0;
   position: relative;
-  color: var(--text); /* use the theme variable instead of hard-coded black */
 }
 
 /* Optional soft overlay for readability */
@@ -830,22 +823,6 @@ body.dark .project-btn {
   }
 }
 
-/* Dark overlay for home when dark mode is active */
-body.dark #home::before {
-  background: rgba(0, 0, 0, 0.45); /* darker overlay so white text reads */
-}
-
-/* Make headings and paragraphs inside hero use theme color explicitly */
-#home h1, #home h2, #home p, #home .lead {
-  color: var(--text) !important;
-}
-
-#home .btn, #home .btn-outline, #home a {
-  color: inherit;
-}
-#home .btn { color: white; } /* filled button stays white text */
-
-
 /* ------------------------------ */
 /* Resume section                 */
 /* ------------------------------ */
@@ -869,3 +846,59 @@ body.dark .resume-viewer-card {
   color: var(--text);
 }
 
+/* --------------------------
+   NAV: remove active pill + use underline
+   Paste at the end of styles.css
+   -------------------------- */
+
+/* Reset any background on nav links (desktop + mobile) */
+.main-nav a.nav-link,
+.mobile-menu a.nav-link,
+.nav-link {
+  background: transparent !important;   /* remove pill */
+  color: var(--text) !important;
+  padding: .55rem .7rem;                /* keep spacing consistent */
+  border-radius: 8px;                   /* keep radius but background is transparent */
+  box-shadow: none !important;
+}
+
+/* Prevent the rounded "focus" pill when link is focused (keyboard/mouse) */
+.main-nav a.nav-link:focus,
+.mobile-menu a.nav-link:focus,
+.nav-link:focus {
+  background: transparent !important;
+  outline: 2px solid transparent;       /* keep keyboard focus accessible via show-focus class */
+}
+
+/* Use the underline animation to indicate the active link (instead of a filled pill) */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;                 /* slightly below text */
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--text);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+/* Show the underline when hovered or active */
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* If your header uses a different color in dark mode, ensure underline remains visible */
+body.dark .nav-link::after {
+  background: var(--text);
+}
+
+/* Remove any white "pill" added by other rules for .active (force transparent) */
+.nav-link.active,
+.nav-link.active:focus,
+.nav-link.active:hover {
+  background: transparent !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+}
