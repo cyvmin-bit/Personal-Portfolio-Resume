@@ -1111,3 +1111,37 @@ body.dark #home::before {
   }
 }
 
+/* ------------------------------
+ Move profile image above text on phones
+  ------------------------------ */
+@media (max-width: 699px) {
+  /* Make the two-col container stack and show the aside first */
+  .two-col {
+    display: flex !important;
+    flex-direction: column-reverse; /* aside becomes first visually */
+    gap: 1rem;
+  }
+
+  /* Make sure the aside (profile) doesn't shrink and is centered */
+  .two-col > aside {
+    flex: 0 0 auto;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Make profile card responsive and centered */
+  .profile-card {
+    width: 100%;
+    max-width: 420px;   /* keep it a sensible max width on phones */
+    margin: 0 auto;
+  }
+
+  /* Ensure the profile image fills the card nicely */
+  .profile-card .profile-img-big {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+}
+
