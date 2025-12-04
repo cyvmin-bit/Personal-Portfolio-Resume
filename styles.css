@@ -823,6 +823,47 @@ body.dark .project-btn {
   }
 }
 
+/* === Make hero text use theme variables so it's always readable === */
+#home,
+#home h1, 
+#home h2, 
+#home p,
+#home .lead,
+#home .cta-row,
+#home .btn,
+#home .btn-outline {
+  color: var(--text) !important;
+}
+
+/* Light-mode overlay (keeps image soft, text dark) */
+#home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(255,255,255,0.45); /* lighter overlay for readability */
+  backdrop-filter: blur(2px);
+}
+
+/* Dark-mode overlay (only when body.dark present) */
+body.dark #home::before {
+  background: rgba(0,0,0,0.55); /* darker overlay so white text reads */
+  backdrop-filter: blur(2px);
+}
+
+/* Ensure hero content sits above overlay */
+#home .container { position: relative; z-index: 1; }
+
+/* Reduce overlay intensity & blur on small screens for better contrast */
+@media (max-width: 768px) {
+  #home::before { background: rgba(255,255,255,0.35); backdrop-filter: blur(1px); }
+  body.dark #home::before { background: rgba(0,0,0,0.6); backdrop-filter: blur(1px); }
+}
+
+/* If any rules elsewhere force a color, this keeps hero readable */
+#home h1, #home .lead, #home p { color: var(--text) !important; }
+
+
 /* ------------------------------ */
 /* Resume section                 */
 /* ------------------------------ */
