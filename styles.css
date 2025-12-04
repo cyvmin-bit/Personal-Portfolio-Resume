@@ -1055,34 +1055,64 @@ body.dark #home::before {
   #menuToggle { display: inline-flex; }
 }
 
-/* =====================================
-   Makes the toggle open & close properly
-   ===================================== */
-
-/* When JS adds class .open to .main-nav */
-.main-nav.open {
-  display: block !important;
-}
-
-/* Proper mobile dropdown styling */
+/* ---------------------------
+   Mobile menu visibility fix
+   Paste at end of styles.css
+   --------------------------- */
 @media (max-width: 699px) {
-  .main-nav.open {
+
+  /* ensure the toggle button is visible */
+  .mobile-only { display: inline-block !important; }
+
+  /* default hidden (lets user JS control it). keep nice appearance if js doesn't run */
+  #mobileMenu { display: none; }
+
+  /* show mobile menu when toggle indicates expanded (modern browsers supporting :has) */
+  header:has(#menuToggle[aria-expanded="true"]) #mobileMenu,
+  /* also allow working if JS adds .open class */
+  header #mobileMenu.open {
+    display: block !important;
     position: absolute;
-    top: 70px;       /* below header */
     left: 0;
     right: 0;
+    top: 64px; /* adjust if your header height differs */
     background: var(--bg);
-    padding: 1rem 0;
+    padding: 0.75rem 0;
     border-top: 1px solid rgba(0,0,0,0.06);
     z-index: 9999;
   }
 
-  .main-nav.open ul {
+  /* inner list layout */
+  #mobileMenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding-left: 1.25rem;
+    gap: 0.5rem;
+  }
+
+  /* links inside menu */
+  #mobileMenu a {
+    display: block;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  #mobileMenu a:hover, #mobileMenu a:focus {
+    background: var(--card);
+  }
+
+  /* dark mode support */
+  body.dark header:has(#menuToggle[aria-expanded="true"]) #mobileMenu,
+  body.dark header #mobileMenu.open {
+    background: var(--bg);
+    border-top: 1px solid rgba(255,255,255,0.05);
   }
 }
+
 
 
 
