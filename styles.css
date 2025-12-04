@@ -228,21 +228,28 @@ body.dark .site-header {
   display:inline-block;
   padding:.6rem 1.1rem;
   border-radius:10px;
-  background:var(--accent);
+  background: #6c63ff;   /* Purple like Download APK */
   color:white;
   text-decoration:none;
   border:none;
   cursor:pointer;
   transition: var(--transition);
 }
-.btn:hover{
-  opacity:.85;
+
+.btn-outline:hover {
+  background: #6c63ff;
+  color: white !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
-.btn-outline{
-  background:transparent;
-  border:1px solid var(--accent);
-  color:var(--accent);
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid #6c63ff;  /* purple border */
+  color: #6c63ff;             /* purple text */
+  transition: 0.25s ease;
 }
+
 .btn-sm{
   padding:.35rem .6rem;
   font-size:.9rem;
@@ -796,6 +803,7 @@ body.dark .project-btn {
   color: #000; /* make text readable */
   padding: 200px 0;
   position: relative;
+  color: var(--text); /* use the theme variable instead of hard-coded black */
 }
 
 /* Optional soft overlay for readability */
@@ -821,6 +829,22 @@ body.dark .project-btn {
     background-position: center;
   }
 }
+
+/* Dark overlay for home when dark mode is active */
+body.dark #home::before {
+  background: rgba(0, 0, 0, 0.45); /* darker overlay so white text reads */
+}
+
+/* Make headings and paragraphs inside hero use theme color explicitly */
+#home h1, #home h2, #home p, #home .lead {
+  color: var(--text) !important;
+}
+
+#home .btn, #home .btn-outline, #home a {
+  color: inherit;
+}
+#home .btn { color: white; } /* filled button stays white text */
+
 
 /* ------------------------------ */
 /* Resume section                 */
