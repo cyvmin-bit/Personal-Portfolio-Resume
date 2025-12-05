@@ -3,6 +3,9 @@
    Mobile-first responsive CSS
    Accessible focus states, animations, and simple dark mode
    ========================================================================== */
+html {
+  color-scheme: light !important;
+}
 
 
 /* --------------------------------------------------------------------------
@@ -21,9 +24,6 @@
   --transition: 0.25s ease-in-out;
 }
 
-:root {
-  color-scheme: light; /* force light mode */
-}
 
 /* Respect system dark preference: alternate root variables */
 @media (prefers-color-scheme: dark){
@@ -450,6 +450,7 @@ body.dark .project-card {
   background: var(--card);
   box-shadow: var(--shadow);
 }
+
 body.dark .project-card:hover {
   box-shadow: 0 10px 22px rgba(0,0,0,0.65);
 }
@@ -467,6 +468,7 @@ body.dark textarea {
   border: 1px solid #2b2d32;
   color: var(--text);
 }
+
 body.dark input::placeholder,
 body.dark textarea::placeholder {
   color: #888;
@@ -483,6 +485,7 @@ body.dark .mobile-menu {
   background: var(--bg);
   border-top: 1px solid rgba(255,255,255,0.04);
 }
+
 body.dark .mobile-menu a {
   color: var(--text);
 }
@@ -552,7 +555,7 @@ body.dark .modal-dialog {
   position: relative;
   overflow: hidden;
 
-  /* ← UPDATED: enhanced hero background (light-mode) */
+  /* enhanced hero background (light-mode) */
   background:
     radial-gradient(circle at 20% 20%, rgba(0,140,255,0.25), transparent 55%),
     radial-gradient(circle at 80% 80%, rgba(255,80,180,0.25), transparent 55%),
@@ -772,12 +775,6 @@ body.dark .project-btn {
   .projects-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* Always keep project cards white */
-.project-card {
-  background: #ffffff !important;
-  color: #000 !important;
 }
 
 /* Keep the inner text readable */
@@ -1036,7 +1033,7 @@ body.dark #home::before {
   /* Dark mode (phone only) */
   body.dark #menuToggle,
   body.dark #themeToggle {
-    background: rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.06);
     color: var(--text);
     border-color: rgba(255,255,255,0.06);
     box-shadow: 0 4px 12px rgba(0,0,0,0.45);
@@ -1061,6 +1058,7 @@ body.dark #home::before {
 
 /* -----------------------------
   Mobile menu visibility patch
+  Put this at the END of styles.css
   ----------------------------- */
 @media (max-width: 699px) {
   /* Ensure mobile-only toggle is visible (defensive) */
@@ -1159,3 +1157,6 @@ body:not(.dark) #themeToggle {
   }
 }
 
+body.dark * {
+  color: var(--text) !important;
+}
