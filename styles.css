@@ -3,8 +3,10 @@
    Mobile-first responsive CSS
    Accessible focus states, animations, and simple dark mode
    ========================================================================== */
+
 html {
   color-scheme: light !important;
+  forced-color-adjust: none !important;
 }
 
 
@@ -22,19 +24,6 @@ html {
   --shadow: 0 6px 18px rgba(0,0,0,0.06);
 
   --transition: 0.25s ease-in-out;
-}
-
-
-/* Respect system dark preference: alternate root variables */
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg: #0b0c0f;
-    --text: #f3f4f6;
-    --muted: #bfc2c6;
-    --accent: #7fb6ff;
-    --card: #101216;
-    --shadow: 0 6px 18px rgba(255,255,255,0.05);
-  }
 }
 
 
