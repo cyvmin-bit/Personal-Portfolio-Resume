@@ -261,10 +261,19 @@ if (userPref) {
   const allPages = qa('.page');
 
   function showPage(pageID) {
-    allPages.forEach(p => p.style.display = 'none');
-    const page = q(`#${pageID}`);
-    if (page) page.style.display = 'block';
-  }
+  allPages.forEach(p => p.style.display = 'none');
+  const page = q(`#${pageID}`);
+  if (page) page.style.display = 'block';
+
+  // Update active nav highlight when changing pages
+  navLinksNEW.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === `#${pageID}`) {
+      link.classList.add('active');
+    }
+  });
+}
+
 
   function handleRoute() {
     let hash = location.hash.replace('#', '').trim();
@@ -277,7 +286,7 @@ if (userPref) {
 
 
   /* ---------------------------------------------------
-     Optional: resume download click handler (non-essential)
+     resume download click handler (non-essential)
      Placed here so it can use q() helper
   --------------------------------------------------- */
   const downloadResumeBtn = q('#downloadResume');
