@@ -339,14 +339,78 @@ input:focus, textarea:focus{
   margin-top:.25rem;
 }
 
-.contact-info a {
-  margin-right: 15px;
-  color: #0077cc; /* or your theme color */
-  text-decoration: none;
+/* container & items */
+.contact-info {
+  display: block;
+  max-width: 560px;      /* adjust to layout */
+  margin: 0;
+  padding: 0;
 }
 
-.contact-info a:hover {
-  color: #005599; /* hover color */
+/* each line */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;             /* space between icon and text */
+  margin: 12px 0;
+  font-size: 1.05rem;
+}
+
+/* icon sizing and alignment */
+.contact-item i {
+  font-size: 26px;       /* icon size */
+  width: 34px;           /* reserve same space for all icons */
+  text-align: center;
+  line-height: 1;
+  color: #111;           /* default icon color */
+}
+
+/* anchor styling */
+.contact-item a {
+  color: #0077cc;
+  text-decoration: none;
+  word-break: break-word; /* prevent overflow for long URLs */
+}
+
+/* subtle hover */
+.contact-item a:hover,
+.contact-item i:hover {
+  color: #005599;
+  text-decoration: underline;
+}
+
+/* optional: make the whole row clickable (accessible) */
+.contact-item a {
+  display: inline-block;
+  padding: 4px 0;
+}
+
+/* Responsive: stack smaller screens if needed */
+@media (max-width: 420px) {
+  .contact-item {
+    gap: 8px;
+    font-size: 1rem;
+  }
+  .contact-item i { font-size: 22px; width: 30px; }
+}
+
+/* Brand colors */
+.email-icon {
+  color: #d44638; /* Gmail red */
+}
+
+.linkedin-icon {
+  color: #0077b5; /* LinkedIn blue */
+}
+
+.instagram-icon {
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.facebook-icon {
+  color: #1877f2; /* Facebook blue */
 }
 
 /* Contact form button spacing */
