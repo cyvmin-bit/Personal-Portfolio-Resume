@@ -297,5 +297,5 @@ if (userPref) {
     });
   }
 
-}); // end DOMContentLoaded
+}); 
 
