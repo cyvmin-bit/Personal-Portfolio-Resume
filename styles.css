@@ -21,6 +21,10 @@
   --transition: 0.25s ease-in-out;
 }
 
+:root {
+  color-scheme: light; /* force light mode */
+}
+
 /* Respect system dark preference: alternate root variables */
 @media (prefers-color-scheme: dark){
   :root{
