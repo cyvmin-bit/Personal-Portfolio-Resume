@@ -313,11 +313,13 @@ body.dark .site-header {
   display:grid;
   gap:1rem;
 }
+
 .form-row{
   margin-bottom:.75rem;
   display:flex;
   flex-direction:column;
 }
+
 input, textarea{
   padding:.6rem .75rem;
   border-radius:8px;
@@ -325,14 +327,34 @@ input, textarea{
   background:white;
   transition:var(--transition);
 }
+
 input:focus, textarea:focus{
   outline:3px solid rgba(0,123,255,0.12);
 }
+
 .field-error{
   color:#b00020;
   font-size:.9rem;
   min-height:1.1rem;
   margin-top:.25rem;
+}
+
+.contact-info a {
+  margin-right: 15px;
+  color: #0077cc; /* or your theme color */
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  color: #005599; /* hover color */
+}
+
+/* Contact form button spacing */
+.contact-grid .form-row {
+  display: flex;
+  flex-wrap: wrap;   /* allows buttons to stack on small screens */
+  gap: 10px;         /* spacing between buttons */
+  margin-top: 10px;  /* optional: extra space above buttons */
 }
 
 
@@ -693,13 +715,21 @@ body.dark .hero {
 }
 
 .project-card {
-  background: var(--card);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  background-image: url('light projectcard.jpg'); /* replace with your image URL */
+  background-size: cover;       /* make sure image covers the card */
+  background-position: center;  /* center the image */
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  position: relative;           /* needed if you want overlay */
+}
+
+.project-card * {
+  position: relative; /* make content appear above overlay */
+  z-index: 1;
 }
 
 .project-card:hover {
@@ -745,8 +775,33 @@ body.dark .hero {
 
 /* Dark mode support */
 body.dark .project-card {
-  background: #1e1e1e;
+  background-image: url('projectcard.jpg'); /* replace with your image URL */
+  background-size: cover;       /* make sure image covers the card */
+  background-position: center;  /* center the image */
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  position: relative;           /* needed if you want overlay */
 }
+
+/* Optional: dark overlay so text is readable */
+body.dark .project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);  /* adjust darkness */
+  border-radius: 12px;
+  z-index: 0;
+}
+
+body.dark .project-card * {
+  position: relative; /* make content appear above overlay */
+  z-index: 1;
+}
+
 
 body.dark .project-btn {
   background: #7a74ff;
@@ -878,7 +933,7 @@ body.dark .resume-viewer-card {
 }
 
 /* --------------------------
-   NAV: remove active pill + use underline
+   remove active pill + use underline
    Paste at the end of styles.css
    -------------------------- */
 
@@ -1149,3 +1204,4 @@ body:not(.dark) #themeToggle {
 body.dark * {
   color: var(--text) !important;
 }
+
