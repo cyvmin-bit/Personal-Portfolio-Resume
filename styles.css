@@ -833,6 +833,17 @@ body.dark .hero {
   transition: background .25s ease;
 }
 
+/* Make project section buttons centered & same size */
+.project-card .project-btn {
+  display: block;        /* full block so width works */
+  width: 100%;           /* full width of card */
+  max-width: 200px;      /* consistent size */
+  margin: 0 auto;        /* center the button */
+  text-align: center;
+  padding: 12px 0;       /* look more balanced */
+}
+
+
 .project-btn:hover {
   background: var(--accent-hover, #5548d6);
 }
@@ -998,7 +1009,6 @@ body.dark .resume-viewer-card {
 
 /* --------------------------
    remove active pill + use underline
-   Paste at the end of styles.css
    -------------------------- */
 
 /* Reset any background on nav links (desktop + mobile) */
