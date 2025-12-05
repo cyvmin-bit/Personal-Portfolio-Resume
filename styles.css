@@ -1111,6 +1111,16 @@ body.dark #home::before {
   }
 }
 
+/* Ensure toggle buttons stay light even if phone is in dark mode */
+body:not(.dark) #menuToggle,
+body:not(.dark) #themeToggle {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03) !important;
+}
+
+
 /* ------------------------------
  Move profile image above text on phones
   ------------------------------ */
